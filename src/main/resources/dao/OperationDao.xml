@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.iretail.dao.OperationDao">
+  <resultMap id="BaseResultMap" type="com.example.iretail.entity.Operation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="operation_code" jdbcType="VARCHAR" property="operationCode" />
+    <result column="operation_desc" jdbcType="VARCHAR" property="operationDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, operation_code, operation_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from operation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from operation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.iretail.entity.Operation" useGeneratedKeys="true">
+    insert into operation (operation_code, operation_desc)
+    values (#{operationCode,jdbcType=VARCHAR}, #{operationDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.iretail.entity.Operation" useGeneratedKeys="true">
+    insert into operation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="operationCode != null">
+        operation_code,
+      </if>
+      <if test="operationDesc != null">
+        operation_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="operationCode != null">
+        #{operationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operationDesc != null">
+        #{operationDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.iretail.entity.Operation">
+    update operation
+    <set>
+      <if test="operationCode != null">
+        operation_code = #{operationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operationDesc != null">
+        operation_desc = #{operationDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.iretail.entity.Operation">
+    update operation
+    set operation_code = #{operationCode,jdbcType=VARCHAR},
+      operation_desc = #{operationDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from operation
+  </select>
+    <update id="updateByCode" parameterType="com.example.iretail.entity.Operation">
+    update operation
+    set operation_code = #{operationCode,jdbcType=VARCHAR},
+      operation_desc = #{operationDesc,jdbcType=VARCHAR}
+    where operation_code = #{operationCode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByIdList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from operation
+    where id in
+    <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

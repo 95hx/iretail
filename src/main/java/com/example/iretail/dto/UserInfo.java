@@ -13,7 +13,7 @@ public class UserInfo {
     private Integer userId;
     private String username;
     private List<Role> roleList;
-    private List<Org> OrgList;
+    private List<Org> orgList;
     private List<Store> storeList;
     private List<Operation> operationList;
 }

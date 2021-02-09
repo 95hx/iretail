@@ -41,7 +41,7 @@ public class JwtUtil {
      */
     public UserInfo verify(String authorization) {
         if (StringUtils.isEmpty(authorization)) {
-            throw new BusinessException(ErrorCode.PERMISSION_DENY, "Authorization in header require");
+            throw new BusinessException(ErrorCode.JWT_EMPTY, "Authorization in header require");
         }
         Algorithm algorithm = Algorithm.HMAC256(secret);
         DecodedJWT jwt = JWT.decode(authorization);
@@ -52,7 +52,7 @@ public class JwtUtil {
         try {
             verifier.verify(authorization);
         } catch (Exception e) {
-            throw new BusinessException(ErrorCode.PERMISSION_DENY);
+            throw new BusinessException(ErrorCode.BAD_JWT);
         }
         return JSON.parseObject(userInfo, UserInfo.class);
     }

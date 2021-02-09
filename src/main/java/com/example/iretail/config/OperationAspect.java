@@ -37,7 +37,7 @@ public class OperationAspect implements ApplicationRunner {
     public Object aroundOperation(ProceedingJoinPoint point) throws Throwable {
         String jwt = HttpContextUtil.getHttpServletRequest().getHeader("Authorization");
         if (ObjectUtils.isEmpty(jwt)) {
-            throw new BusinessException(ErrorCode.PERMISSION_DENY, "Authorization in header require");
+            throw new BusinessException(ErrorCode.JWT_EMPTY, "Authorization in header require");
         }
         UserInfo userInfo = jwtUtil.verify(jwt);
         HttpContextUtil.getHttpServletRequest().getSession().setAttribute("userInfo",userInfo);
@@ -49,7 +49,7 @@ public class OperationAspect implements ApplicationRunner {
                 return point.proceed();
             }
         }
-        throw new BusinessException(ErrorCode.PERMISSION_DENY);
+        throw new BusinessException(ErrorCode.OPERATION_DENY);
     }
 
     @Value("${controller.path}")

@@ -11,7 +11,11 @@ public enum  ErrorCode {
     SQL_UPDATE_FAIL("000005","sql update fail"),
     DOC_NUM_GENERATE_FAIL("000006","please retry generate doc num"),
     INVALID_ORDER_DETAIL("000007","order detail invalid please check"),
-    PERMISSION_DENY("000008","permission deny"),
+    JWT_EMPTY("000008","jwt empty"),
+    BAD_JWT("000009","bad jwt"),
+    OPERATION_DENY("000010","operation deny"),
+    ORG_DENY("000011","org deny"),
+    STORE_DENY("000012","store deny"),
     INTERVAL_ERROR("999999","internal error");
     private String code;
     private String detail;

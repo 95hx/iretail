@@ -17,7 +17,7 @@ public class UserScopeUtil {
         UserInfo userInfo = getUserInfo();
         Set<Integer> userOrgIdList = userInfo.getOrgList().stream().map(Org::getId).collect(Collectors.toSet());
         if (!userOrgIdList.containsAll(orgIdList)) {
-            throw new BusinessException(ErrorCode.PERMISSION_DENY, "org permission valid fail");
+            throw new BusinessException(ErrorCode.ORG_DENY, "org permission valid fail");
         }
     }
 
@@ -29,7 +29,7 @@ public class UserScopeUtil {
         UserInfo userInfo = getUserInfo();
         Set<Integer> userStoreIdList = userInfo.getStoreList().stream().map(Store::getId).collect(Collectors.toSet());
         if (!userStoreIdList.containsAll(storeIdList)) {
-            throw new BusinessException(ErrorCode.PERMISSION_DENY, "org permission valid fail");
+            throw new BusinessException(ErrorCode.STORE_DENY, "store permission valid fail");
         }
     }
 }

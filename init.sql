@@ -4,7 +4,7 @@ create table operation
 (
 	id int auto_increment
 		primary key,
-	operation_code varchar(255) not null,
+	operation_code varchar(32) not null,
 	operation_desc varchar(255) not null,
 	constraint operation_operation_code_uindex
 		unique (operation_code)
@@ -23,7 +23,7 @@ create table role
 (
 	id int auto_increment
 		primary key,
-	role_name varchar(255) not null,
+	role_name varchar(32) not null,
 	constraint role_role_name_uindex
 		unique (role_name)
 );
@@ -50,7 +50,7 @@ create table user
 (
 	id int auto_increment
 		primary key,
-	username varchar(255) not null,
+	username varchar(32) not null,
 	password varchar(255) not null,
 	nickname varchar(255) not null,
 	constraint user_username_uindex
@@ -76,4 +76,15 @@ create table user_role
 	constraint user_role_role_id_user_id_uindex
 		unique (role_id, user_id)
 );
+
+create table doc_counter
+(
+	id int auto_increment comment '主键'
+		primary key,
+	doc_type varchar(16) null comment '单据类型',
+	count bigint not null comment '计数器',
+	constraint doc_counter_doc_type_uindex
+		unique (doc_type)
+)
+comment '单据号计数器表';
 
